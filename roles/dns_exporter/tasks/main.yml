@@ -1,4 +1,9 @@
 ---
+
+- name: RedHat | Import redhat-epel
+  ansible.builtin.import_tasks: redhat-epel.yml
+  when: ansible_facts['os_family'] == "RedHat"
+
 - name: Preflight
   ansible.builtin.include_tasks:
     file: preflight.yml
@@ -37,13 +42,11 @@
         version: "{{ dns_exporter_version }}"
         state: present
         virtualenv: "{{ dns_exporter_virtualenv }}"
-      become: true
-      become_user: "{{ dns_exporter_system_user }}"
     - name: Ensure config dir exists
       ansible.builtin.file:
         path: "{{ dns_exporter_config_dir }}"
         state: directory
-        mode: '0775'  # like _common
+        mode: u+rwX,g+rwX,o=rX  # like _common
         owner: root
     - name: Configure dns_exporter
       ansible.builtin.template:
@@ -60,7 +63,7 @@
     tasks_from: selinux.yml
   vars:
     _common_selinux_port: "{{ dns_exporter_web_listen_address | urlsplit('port') }}"
-  when: ansible_selinux.status == "enabled"
+  when: ansible_facts['selinux'].status == "enabled"
   tags:
     - dns_exporter_configure
 
