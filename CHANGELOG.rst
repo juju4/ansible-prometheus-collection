@@ -4,6 +4,17 @@ Prometheus.Prometheus Release Notes
 
 .. contents:: Topics
 
+v0.30.1
+=======
+
+v0.30.0
+=======
+
+Minor Changes
+-------------
+
+- feat: Add Ansible Core 2.21 support (https://github.com/prometheus-community/ansible/pull/807)
+
 v0.29.2
 =======
 
