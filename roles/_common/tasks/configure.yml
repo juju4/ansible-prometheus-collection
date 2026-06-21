@@ -8,20 +8,56 @@
   tags:
     - always
 
-- name: "Create systemd service unit {{ _common_service_name }}"
-  ansible.builtin.template:
-    src: "{{ _common_service_name }}.service.j2"
-    dest: "/etc/systemd/system/{{ _common_service_name }}.service"
-    owner: root
-    group: root
-    mode: 0644
-  become: true
-  notify:
-    - "{{ ansible_parent_role_names | first }} : Restart {{ _common_service_name }}"
-  tags:
-    - "{{ ansible_parent_role_names | first | regex_replace(ansible_collection_name ~ '.', '') }}"
-    - configure
-    - "{{ ansible_parent_role_names | first | regex_replace(ansible_collection_name ~ '.', '') }}_configure"
+- name: Systemd
+  block:
+    - name: "Create systemd service unit {{ _common_service_name }}"
+      ansible.builtin.template:
+        src: "{{ _common_service_name }}.service.j2"
+        dest: "/etc/systemd/system/{{ _common_service_name }}.service"
+        owner: root
+        group: root
+        mode: '0644'
+      become: true
+      notify:
+        - "{{ ansible_parent_role_names | first }} : Restart {{ _common_service_name }}"
+      tags:
+        - "{{ ansible_parent_role_names | first | regex_replace(ansible_collection_name ~ '.', '') }}"
+        - configure
+        - "{{ ansible_parent_role_names | first | regex_replace(ansible_collection_name ~ '.', '') }}_configure"
+  rescue:
+    - name: Import immutable
+      ansible.builtin.import_tasks: immutable.yml
+      vars:
+        target_dir: /etc/systemd/system
+        state: pre
+    - name: Import immutable
+      ansible.builtin.import_tasks: immutable.yml
+      vars:
+        target_dir: "/etc/systemd/system/{{ _common_service_name }}.service"
+        state: pre
+    - name: "Create systemd service unit (immutable) {{ _common_service_name }}"
+      ansible.builtin.template:
+        src: "{{ _common_service_name }}.service.j2"
+        dest: "/etc/systemd/system/{{ _common_service_name }}.service"
+        owner: root
+        group: root
+        mode: '0644'
+      become: true
+      notify:
+        - "{{ ansible_parent_role_names | first }} : Restart {{ _common_service_name }}"
+      tags:
+        - "{{ ansible_parent_role_names | first | regex_replace(ansible_collection_name ~ '.', '') }}"
+        - configure
+        - "{{ ansible_parent_role_names | first | regex_replace(ansible_collection_name ~ '.', '') }}_configure"
+    - name: Import immutable
+      ansible.builtin.import_tasks: immutable.yml
+      vars:
+        target_dir: /etc/systemd/system
+        state: post
+    - name: Import immutable
+      ansible.builtin.import_tasks: immutable.yml
+      vars:
+        target_dir: "/etc/systemd/system/{{ _common_service_name }}.service"
 
 - name: "Create config dir {{ _common_config_dir }}"
   ansible.builtin.file:
