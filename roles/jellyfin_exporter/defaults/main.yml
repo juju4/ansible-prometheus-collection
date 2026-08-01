@@ -1,0 +1,38 @@
+---
+jellyfin_exporter_version: 1.5.2
+jellyfin_exporter_binary_url: "https://github.com/{{ _jellyfin_exporter_repo }}/releases/download/v{{ jellyfin_exporter_version }}/\
+                           jellyfin_exporter-{{ jellyfin_exporter_version }}.{{ ansible_facts['system'] | lower }}-{{ _jellyfin_exporter_go_ansible_arch }}.tar.gz"
+jellyfin_exporter_checksums_url: "https://github.com/{{ _jellyfin_exporter_repo }}/releases/download/v{{ jellyfin_exporter_version }}/sha256sums.txt"
+
+jellyfin_exporter_web_disable_exporter_metrics: false
+jellyfin_exporter_web_listen_port: 9594
+jellyfin_exporter_web_listen_address: "0.0.0.0:{{ jellyfin_exporter_web_listen_port }}"
+jellyfin_exporter_web_telemetry_path: "/metrics"
+
+jellyfin_exporter_textfile_dir: "/var/lib/jellyfin_exporter"
+
+jellyfin_exporter_tls_server_config: {}
+
+jellyfin_exporter_http_server_config: {}
+
+jellyfin_exporter_basic_auth_users: {}
+
+jellyfin_exporter_enabled_collectors:
+  - systemd
+  - textfile:
+      directory: "{{ jellyfin_exporter_textfile_dir }}"
+#  - filesystem:
+#      ignored-mount-points: "^/(sys|proc|dev)($|/)"
+#      ignored-fs-types: "^(sys|proc|auto)fs$"
+
+jellyfin_exporter_disabled_collectors: []
+
+jellyfin_exporter_binary_install_dir: "/usr/local/bin"
+jellyfin_exporter_system_group: "jellyfin-exp"
+jellyfin_exporter_system_user: "{{ jellyfin_exporter_system_group }}"
+# systemd cli extra arguments
+jellyfin_exporter_extra_args: []
+
+jellyfin_exporter_config_dir: "/etc/jellyfin_exporter"
+# Local path to stash the archive and its extraction
+jellyfin_exporter_local_cache_path: "/tmp/jellyfin_exporter-{{ ansible_facts['system'] | lower }}-{{ _jellyfin_exporter_go_ansible_arch }}/{{ jellyfin_exporter_version }}"
