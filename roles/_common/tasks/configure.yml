@@ -58,6 +58,7 @@
       ansible.builtin.import_tasks: immutable.yml
       vars:
         target_dir: "/etc/systemd/system/{{ _common_service_name }}.service"
+        state: post
 
 - name: "Create config dir {{ _common_config_dir }}"
   ansible.builtin.file:
