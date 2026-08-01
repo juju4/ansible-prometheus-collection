@@ -1,0 +1,10 @@
+{{ ansible_managed | comment }}
+
+[Unit]
+Description=Jellyfin Exporter
+
+[Socket]
+ListenStream={{ jellyfin_exporter_web_listen_port }}
+
+[Install]
+WantedBy=sockets.target

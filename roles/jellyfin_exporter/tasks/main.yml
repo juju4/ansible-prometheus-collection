@@ -1,0 +1,53 @@
+---
+- name: Preflight
+  ansible.builtin.include_tasks:
+    file: preflight.yml
+  tags:
+    - jellyfin_exporter_install
+    - jellyfin_exporter_configure
+    - jellyfin_exporter_run
+
+- name: Install
+  ansible.builtin.include_role:
+    name: prometheus.prometheus._common
+    tasks_from: install.yml
+  vars:
+    _common_local_cache_path: "{{ jellyfin_exporter_local_cache_path }}"
+    _common_binaries: "{{ _jellyfin_exporter_binaries }}"
+    _common_binary_install_dir: "{{ jellyfin_exporter_binary_install_dir }}"
+    _common_binary_url: "{{ jellyfin_exporter_binary_url }}"
+    _common_checksums_url: "{{ jellyfin_exporter_checksums_url }}"
+    _common_system_group: "{{ jellyfin_exporter_system_group }}"
+    _common_system_user: "{{ jellyfin_exporter_system_user }}"
+    _common_config_dir: "{{ jellyfin_exporter_config_dir }}"
+    _common_binary_unarchive_opts: ['--strip-components=1']
+  tags:
+    - jellyfin_exporter_install
+
+- name: SELinux
+  ansible.builtin.include_role:
+    name: prometheus.prometheus._common
+    tasks_from: selinux.yml
+  vars:
+    _common_selinux_port: "{{ jellyfin_exporter_web_listen_address | urlsplit('port') }}"
+  when: ansible_facts['selinux'].status == "enabled"
+  tags:
+    - jellyfin_exporter_configure
+
+- name: Configure
+  ansible.builtin.include_tasks:
+    file: configure.yml
+  tags:
+    - jellyfin_exporter_configure
+
+- name: Ensure Node Exporter is enabled on boot
+  become: true
+  ansible.builtin.systemd:
+    daemon_reload: true
+    name: jellyfin_exporter
+    enabled: true
+    state: started
+  when:
+    - not ansible_check_mode
+  tags:
+    - jellyfin_exporter_run

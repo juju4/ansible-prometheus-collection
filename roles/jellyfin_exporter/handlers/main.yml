@@ -1,0 +1,10 @@
+---
+- name: Restart jellyfin_exporter
+  listen: "restart jellyfin_exporter"
+  become: true
+  ansible.builtin.systemd:
+    daemon_reload: true
+    name: jellyfin_exporter
+    state: restarted
+  when:
+    - not ansible_check_mode
