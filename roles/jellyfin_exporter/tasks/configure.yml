@@ -1,4 +1,9 @@
 ---
+- name: Configure socket
+  ansible.builtin.include_tasks: configure-socket.yml
+  vars:
+    _common_service_name: "jellyfin_exporter"
+
 - name: Configure
   ansible.builtin.include_role:
     name: prometheus.prometheus._common
@@ -19,6 +24,23 @@
   ansible.builtin.file:
     path: "{{ jellyfin_exporter_textfile_dir }}"
     state: directory
+    owner: "{{ jellyfin_exporter_system_user }}"
+    group: "{{ jellyfin_exporter_system_group }}"
+    mode: u+rwX,g+rwX,o=rX
+  become: true
+  when: jellyfin_exporter_textfile_dir | length > 0
+  tags:
+    - jellyfin_exporter
+    - configure
+    - jellyfin_exporter_configure
+
+- name: Create default config file
+  ansible.builtin.copy:
+    path: "{{ jellyfin_exporter_cfg }}"
+    content: |
+      JELLYFIN_ADDRESS={{ jellyfin_exporter_jellyfin_url }}
+      JELLYFIN_TOKEN={{ jellyfin_exporter_token }}
+    state: present
     owner: "{{ jellyfin_exporter_system_user }}"
     group: "{{ jellyfin_exporter_system_group }}"
     mode: u+rwX,g+rwX,o=rX

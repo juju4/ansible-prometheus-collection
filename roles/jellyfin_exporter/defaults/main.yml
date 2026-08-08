@@ -9,6 +9,10 @@ jellyfin_exporter_web_listen_port: 9594
 jellyfin_exporter_web_listen_address: "0.0.0.0:{{ jellyfin_exporter_web_listen_port }}"
 jellyfin_exporter_web_telemetry_path: "/metrics"
 
+jellyfin_exporter_jellyfin_url: "http://localhost:8096"
+# Mandatory. Get from Jellyfin admin dashboard.
+jellyfin_exporter_token: ""
+
 jellyfin_exporter_textfile_dir: "/var/lib/jellyfin_exporter"
 
 jellyfin_exporter_tls_server_config: {}

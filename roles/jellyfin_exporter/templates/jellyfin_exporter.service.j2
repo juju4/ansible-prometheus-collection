@@ -13,14 +13,7 @@ Type=simple
 User={{ jellyfin_exporter_system_user }}
 Group={{ jellyfin_exporter_system_group }}
 ExecStart={{ jellyfin_exporter_binary_install_dir }}/jellyfin_exporter \
-    --web.systemd-socket $OPTIONS
-EnvironmentFile=/etc/sysconfig/jellyfin_exporter
-
-[Service]
-Type=simple
-User={{ jellyfin_exporter_system_user }}
-Group={{ jellyfin_exporter_system_group }}
-ExecStart={{ jellyfin_exporter_binary_install_dir }}/jellyfin_exporter \
+    --web.systemd-socket $OPTIONS \
 {% if jellyfin_exporter_tls_server_config | length > 0 or jellyfin_exporter_http_server_config | length > 0 or jellyfin_exporter_basic_auth_users | length > 0 %}
     {% if jellyfin_exporter_version is version('1.5.0', '>=') %}
     '--web.config.file={{ jellyfin_exporter_config_dir }}/web_config.yml' \
@@ -52,6 +45,7 @@ ExecStart={{ jellyfin_exporter_binary_install_dir }}/jellyfin_exporter \
 {% endif %}
     '--web.telemetry-path={{ jellyfin_exporter_web_telemetry_path }}'
 
+EnvironmentFile="{{ jellyfin_exporter_cfg }}"
 SyslogIdentifier=jellyfin_exporter
 Restart=always
 RestartSec=1
