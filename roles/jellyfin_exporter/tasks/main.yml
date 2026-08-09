@@ -1,4 +1,8 @@
 ---
+
+- name: Include variables
+  ansible.builtin.include_vars: "{{ ansible_facts['os_family'] }}.yml"
+
 - name: Preflight
   ansible.builtin.include_tasks:
     file: preflight.yml
