@@ -1,0 +1,10 @@
+---
+- name: Restart meshtastic_exporter
+  listen: "restart meshtastic_exporter"
+  become: true
+  ansible.builtin.systemd:
+    daemon_reload: true
+    name: meshtastic_exporter
+    state: restarted
+  when:
+    - not ansible_check_mode

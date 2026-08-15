@@ -1,0 +1,35 @@
+---
+meshtastic_exporter_version: 2.7
+# not go, but python pip. placeholders for _common
+meshtastic_exporter_textfile_dir: ""
+meshtastic_exporter_enabled_collectors: []
+meshtastic_exporter_disabled_collectors: []
+meshtastic_exporter_tls_server_config: {}
+meshtastic_exporter_http_server_config: {}
+meshtastic_exporter_basic_auth_users: {}
+meshtastic_exporter_web_listen_address: "127.0.0.1:9464"
+
+meshtastic_exporter_web_listen_ip: "127.0.0.1"
+meshtastic_exporter_web_listen_port: "9464"
+
+meshtastic_exporter_debug_enable: false
+
+meshtastic_exporter_home: "/var/lib/meshtastic_exporter"
+meshtastic_exporter_virtualenv: "/var/lib/meshtastic_exporter/venv"
+
+meshtastic_exporter_config_template: meshtastic_exporter.j2
+meshtastic_exporter_interface: mqtt
+meshtastic_exporter_mqtt_address: mqtt.meshtastic.org
+meshtastic_exporter_mqtt_port: 1883
+meshtastic_exporter_mqtt_tls: 0
+meshtastic_exporter_mqtt_keepalive: 15
+meshtastic_exporter_mqtt_username: meshdev
+meshtastic_exporter_mqtt_password:
+meshtastic_exporter_mqtt_topic: msh/EU_433/#
+meshtastic_exporter_ble_address: AA:BB:CC:DD:EE:FF
+meshtastic_exporter_serial_device: /dev/ttyUSB0
+
+meshtastic_exporter_system_group: "meshtastic-exp"
+meshtastic_exporter_system_user: "{{ meshtastic_exporter_system_group }}"
+
+meshtastic_exporter_config_dir: "/etc/default"
