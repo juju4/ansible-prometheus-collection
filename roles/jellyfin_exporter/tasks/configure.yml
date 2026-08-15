@@ -26,7 +26,7 @@
     state: directory
     owner: "{{ jellyfin_exporter_system_user }}"
     group: "{{ jellyfin_exporter_system_group }}"
-    mode: u+rwX,g+rwX,o=rX
+    mode: u+rwX
   become: true
   when: jellyfin_exporter_textfile_dir | length > 0
   tags:
@@ -36,16 +36,17 @@
 
 - name: Create default config file
   ansible.builtin.copy:
-    path: "{{ jellyfin_exporter_cfg }}"
+    dest: "{{ jellyfin_exporter_cfg }}"
     content: |
       JELLYFIN_ADDRESS={{ jellyfin_exporter_jellyfin_url }}
       JELLYFIN_TOKEN={{ jellyfin_exporter_token }}
-    state: present
     owner: "{{ jellyfin_exporter_system_user }}"
     group: "{{ jellyfin_exporter_system_group }}"
     mode: u+rwX,g+rwX,o=rX
   become: true
   when: jellyfin_exporter_textfile_dir | length > 0
+  notify:
+    - Restart jellyfin_exporter
   tags:
     - jellyfin_exporter
     - configure
