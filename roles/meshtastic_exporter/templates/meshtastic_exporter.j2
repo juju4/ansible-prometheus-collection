@@ -1,0 +1,28 @@
+---
+{{ ansible_managed | comment }}
+
+# https://github.com/hacktegic/meshtastic-prometheus-exporter/blob/main/docker-compose.yml#L35
+PROMETHEUS_SERVER_ADDR={{ meshtastic_exporter_web_listen_ip }}
+PROMETHEUS_SERVER_PORT={{ meshtastic_exporter_web_listen_port }}
+LOG_LEVEL=INFO
+ENABLE_SENTRY=False
+TCP_RECONNECT_ENABLED=1
+TCP_RECONNECT_DELAY=5
+TCP_MAX_RETRIES=5
+
+{% if meshtastic_exporter_interface == 'mqtt' %}
+MESHTASTIC_INTERFACE=MQTT
+MQTT_ADDRESS={{ meshtastic_exporter_mqtt_address }}
+MQTT_USE_TLS={{ meshtastic_exporter_mqtt_tls }}
+MQTT_PORT={{ meshtastic_exporter_mqtt_port }}
+MQTT_KEEPALIVE={{ meshtastic_exporter_mqtt_keepalive }}
+MQTT_USERNAME={{ meshtastic_exporter_mqtt_username }}
+MQTT_PASSWORD={{ meshtastic_exporter_mqtt_password }}
+MQTT_TOPIC={{ meshtastic_exporter_mqtt_topic }}
+{% elif meshtastic_exporter_interface == 'ble' %}
+MESHTASTIC_INTERFACE=BLE
+INTERFACE_BLE_ADDR={{ meshtastic_exporter_ble_address }}
+{% elif meshtastic_exporter_interface == 'serial' %}
+MESHTASTIC_INTERFACE=SERIAL
+SERIAL_DEVICE={{ meshtastic_exporter_serial_device }}
+{% endif %}
