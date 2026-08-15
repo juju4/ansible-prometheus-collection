@@ -100,7 +100,7 @@ argument_specs:
         default: "meshdev"
       meshtastic_exporter_mqtt_password:
         description: "MQTT password setting when mqtt interface"
-        default: ""
+        default: "secret"
       meshtastic_exporter_mqtt_topic:
         description: "MQTT topic setting when mqtt interface"
         default: "msh/EU_433/#"
