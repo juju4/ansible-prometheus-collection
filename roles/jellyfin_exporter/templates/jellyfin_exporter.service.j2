@@ -45,7 +45,7 @@ ExecStart={{ jellyfin_exporter_binary_install_dir }}/jellyfin_exporter \
 {% endif %}
     '--web.telemetry-path={{ jellyfin_exporter_web_telemetry_path }}'
 
-EnvironmentFile="{{ jellyfin_exporter_cfg }}"
+EnvironmentFile={{ jellyfin_exporter_cfg }}
 SyslogIdentifier=jellyfin_exporter
 Restart=always
 RestartSec=1

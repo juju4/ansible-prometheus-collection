@@ -11,11 +11,11 @@
         mode: '0644'
       become: true
       notify:
-        - "{{ ansible_parent_role_names | first }} : Restart {{ _common_service_name }}"
+        - "Restart {{ _common_service_name }}"
       tags:
-        - "{{ ansible_parent_role_names | first | regex_replace(ansible_collection_name ~ '.', '') }}"
+        - jellyfin_exporter
         - configure
-        - "{{ ansible_parent_role_names | first | regex_replace(ansible_collection_name ~ '.', '') }}_configure"
+        - jellyfin_exporter_configure
   rescue:
     - name: Import immutable
       ansible.builtin.import_tasks: immutable.yml
@@ -36,11 +36,11 @@
         mode: '0644'
       become: true
       notify:
-        - "{{ ansible_parent_role_names | first }} : Restart {{ _common_service_name }}"
+        - "Restart {{ _common_service_name }}"
       tags:
-        - "{{ ansible_parent_role_names | first | regex_replace(ansible_collection_name ~ '.', '') }}"
+        - jellyfin_exporter
         - configure
-        - "{{ ansible_parent_role_names | first | regex_replace(ansible_collection_name ~ '.', '') }}_configure"
+        - jellyfin_exporter_configure
     - name: Import immutable
       ansible.builtin.import_tasks: immutable.yml
       vars:
