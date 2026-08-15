@@ -23,7 +23,16 @@ argument_specs:
         default: false
       jellyfin_exporter_web_listen_address:
         description: "Address on which jellyfin exporter will listen"
-        default: "0.0.0.0:9594"
+        default: "0.0.0.0"
+      jellyfin_exporter_web_listen_port:
+        description: "Port on which jellyfin exporter will listen"
+        default: "9594"
+      jellyfin_exporter_jellyfin_url:
+        description: "URL of jellyfin instance to monitor"
+        default: "9594"
+      jellyfin_exporter_token:
+        description: "Authentication token to connect to jellyfin instance to monitor"
+        default: "9594"
       jellyfin_exporter_web_telemetry_path:
         description: "Path under which to expose metrics"
         default: "/metrics"
