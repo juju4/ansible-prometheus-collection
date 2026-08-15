@@ -24,7 +24,7 @@ meshtastic_exporter_mqtt_port: 1883
 meshtastic_exporter_mqtt_tls: 0
 meshtastic_exporter_mqtt_keepalive: 15
 meshtastic_exporter_mqtt_username: meshdev
-meshtastic_exporter_mqtt_password:
+meshtastic_exporter_mqtt_password: secret
 meshtastic_exporter_mqtt_topic: msh/EU_433/#
 meshtastic_exporter_ble_address: AA:BB:CC:DD:EE:FF
 meshtastic_exporter_serial_device: /dev/ttyUSB0
