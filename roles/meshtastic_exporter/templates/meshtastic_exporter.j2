@@ -4,7 +4,11 @@
 # https://github.com/hacktegic/meshtastic-prometheus-exporter/blob/main/docker-compose.yml#L35
 PROMETHEUS_SERVER_ADDR={{ meshtastic_exporter_web_listen_ip }}
 PROMETHEUS_SERVER_PORT={{ meshtastic_exporter_web_listen_port }}
+{% if meshtastic_exporter_debug_enable | bool %}
+LOG_LEVEL=DEBUG
+{% else %}
 LOG_LEVEL=INFO
+{% endif %}
 ENABLE_SENTRY=False
 TCP_RECONNECT_ENABLED=1
 TCP_RECONNECT_DELAY=5
