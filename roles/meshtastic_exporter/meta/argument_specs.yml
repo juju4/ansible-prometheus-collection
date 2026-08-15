@@ -4,7 +4,7 @@ argument_specs:
   main:
     short_description: "Prometheus Meshtastic Exporter"
     description:
-      - "Deploy prometheus L(dns exporter,https://github.com/hacktegic/meshtastic-prometheus-exporter) using ansible"
+      - "Deploy prometheus L(meshtastic exporter,https://github.com/hacktegic/meshtastic-prometheus-exporter) using ansible"
     author:
       - "Prometheus Community"
     options:
@@ -26,13 +26,13 @@ argument_specs:
         default: "/var/lib/meshtastic_exporter/venv"
       meshtastic_exporter_config_template:
         description: "Configuration template for meshtastic_exporter"
-        default: "meshtastic_exporter.yml.j2"
+        default: "meshtastic_exporter.j2"
       meshtastic_exporter_version:
-        description: "DNS exporter package version. Also accepts latest as parameter."
-        default: "1.0.0"
+        description: "Meshtastic prometheus exporter package version. Also accepts latest as parameter."
+        default: "2.7"
       meshtastic_exporter_web_listen_address:
-        description: "Address on which dns exporter will listen"
-        default: "0.0.0.0:15353"
+        description: "Address on which meshtastic exporter will listen"
+        default: "0.0.0.0:9464"
       meshtastic_exporter_enabled_collectors:
         description:
           - "List of dicts defining additionally enabled collectors and their configuration."
@@ -70,7 +70,7 @@ argument_specs:
       meshtastic_exporter_system_group:
         description:
           - "I(Advanced)"
-          - "System group for dns exporter"
+          - "System group for meshtastic exporter"
         default: "meshtastic-exp"
       meshtastic_exporter_system_user:
         description:
@@ -80,9 +80,6 @@ argument_specs:
       meshtastic_exporter_config_dir:
         description: "Path to directory with meshtastic_exporter configuration"
         default: "/etc/default"
-      meshtastic_exporter_config_template:
-        description: "Template configuration for meshtastic_exporter"
-        default: "meshtastic_exporter.j2"
       meshtastic_exporter_interface:
         description: "Type of interface to use by meshtastic_exporter, mqtt, ble, serial, or tcp"
         default: "mqtt"
