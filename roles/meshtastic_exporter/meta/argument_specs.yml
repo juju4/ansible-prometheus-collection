@@ -80,3 +80,36 @@ argument_specs:
       meshtastic_exporter_config_dir:
         description: "Path to directory with meshtastic_exporter configuration"
         default: "/etc/default"
+      meshtastic_exporter_config_template:
+        description: "Template configuration for meshtastic_exporter"
+        default: "meshtastic_exporter.j2"
+      meshtastic_exporter_interface:
+        description: "Type of interface to use by meshtastic_exporter, mqtt, ble, serial, or tcp"
+        default: "mqtt"
+      meshtastic_exporter_mqtt_address:
+        description: "MQTT server to use when mqtt interface"
+        default: "mqtt.meshtastic.org"
+      meshtastic_exporter_mqtt_port:
+        description: "MQTT server iport to use when mqtt interface"
+        default: "1883"
+      meshtastic_exporter_mqtt_tls:
+        description: "MQTT TLS setting when mqtt interface"
+        default: "0"
+      meshtastic_exporter_mqtt_keepalive:
+        description: "MQTT keepalive setting when mqtt interface"
+        default: "15"
+      meshtastic_exporter_mqtt_username:
+        description: "MQTT username when mqtt interface"
+        default: "meshdev"
+      meshtastic_exporter_mqtt_password:
+        description: "MQTT password setting when mqtt interface"
+        default: ""
+      meshtastic_exporter_mqtt_topic:
+        description: "MQTT topic setting when mqtt interface"
+        default: "msh/EU_433/#"
+      meshtastic_exporter_ble_address:
+        description: "Bluetooth address to connect when ble interface"
+        default: "AA:BB:CC:DD:EE:FF"
+      meshtastic_exporter_serial_device:
+        description: "Serial device filepath to use when serial interface"
+        default: "/dev/ttyUSB0"
