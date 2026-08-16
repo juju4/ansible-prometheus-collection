@@ -28,6 +28,9 @@ meshtastic_exporter_mqtt_password: secret
 meshtastic_exporter_mqtt_topic: msh/EU_433/#
 meshtastic_exporter_ble_address: AA:BB:CC:DD:EE:FF
 meshtastic_exporter_serial_device: /dev/ttyUSB0
+meshtastic_exporter_tcp_address: 192.168.1.2
+meshtastic_exporter_tcp_port: 4403
+meshtastic_exporter_python_version: 3.12
 
 meshtastic_exporter_system_group: "meshtastic-exp"
 meshtastic_exporter_system_user: "{{ meshtastic_exporter_system_group }}"

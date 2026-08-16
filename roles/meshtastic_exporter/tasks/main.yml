@@ -42,6 +42,10 @@
         version: "{{ meshtastic_exporter_version }}"
         state: present
         virtualenv: "{{ meshtastic_exporter_virtualenv }}"
+    - name: Patch issue#232
+      ansible.posix.patch:
+        src: patch-main
+        dest: "{{ meshtastic_exporter_virtualenv }}/lib/python{{ meshtastic_exporter_python_version }}/site-packages/meshtastic_prometheus_exporter/__main__.py"
     - name: Ensure config dir exists
       ansible.builtin.file:
         path: "{{ meshtastic_exporter_config_dir }}"
@@ -52,8 +56,9 @@
       ansible.builtin.template:
         src: "{{ meshtastic_exporter_config_template }}"
         dest: "{{ meshtastic_exporter_config_dir }}/meshtastic_exporter"
-        mode: '0600'
+        mode: '0640'
         owner: root
+        group: "{{ meshtastic_exporter_system_group }}"
       notify:
         - Restart meshtastic_exporter
 

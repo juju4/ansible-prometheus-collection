@@ -110,3 +110,6 @@ argument_specs:
       meshtastic_exporter_serial_device:
         description: "Serial device filepath to use when serial interface"
         default: "/dev/ttyUSB0"
+      meshtastic_exporter_python_version:
+        description: "Python version in virtualenv for patch filepath"
+        default: "3.12"
