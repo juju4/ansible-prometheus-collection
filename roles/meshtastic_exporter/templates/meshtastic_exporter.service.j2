@@ -15,6 +15,7 @@ SyslogIdentifier=meshtastic_exporter
 Restart=always
 RestartSec=1
 StartLimitInterval=0
+EnvironmentFile={{ meshtastic_exporter_config_dir }}/meshtastic_exporter
 
 {% set ns = namespace(protect_home = 'yes') %}
 {% for m in ansible_facts.mounts if m.mount.startswith('/home') %}

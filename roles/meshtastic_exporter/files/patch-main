@@ -1,0 +1,11 @@
+--- __main__.py.orig	2026-08-15 20:00:00.123456789 +0000
++++ __main__.py	2026-08-15 20:00:00.123456789 +0000
+@@ -125,7 +125,7 @@
+ try:
+     reader = PrometheusMetricReader()
+     start_http_server(
+-        port=config["prometheus_server_port"], addr=config["prometheus_server_addr"]
++        port=int(config["prometheus_server_port"]), addr=config["prometheus_server_addr"]
+     )
+ 
+     provider = MeterProvider(
